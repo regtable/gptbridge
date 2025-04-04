@@ -8,7 +8,7 @@ import Message from './models/Message.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 dotenv.config();
-connectDB();
+
 
 const app = express();
 const server = http.createServer(app);
