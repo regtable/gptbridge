@@ -65,6 +65,6 @@ app.post('/gpt-route/callback', async (req, res) => {
   res.json({ status: 'received' });
 });
 
-server.listen(process.env.PORT || 4001, () => {
-  console.log(`🚀 Server running on port ${process.env.PORT || 4001}`);
+server.listen(process.env.PORT || 8080, () => {
+  console.log(`🚀 Server running on port ${process.env.PORT || 8080}`);
 });
