@@ -5,7 +5,8 @@ import { Server } from 'socket.io';
 import { connectDB } from './mongo.js';
 import dotenv from 'dotenv';
 import Message from './models/Message.js';
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 dotenv.config();
 connectDB();
 
@@ -32,7 +33,13 @@ io.on('connection', (socket) => {
     delete sockets[userId];
   });
 });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientPath = path.join(__dirname, '..', 'client', 'build');
 
+app.use(express.static(clientPath));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientPath, 'index.html'));
+});
 app.post('/gpt-route/message', async (req, res) => {
   const { user_id, message_id, payload, timestamp } = req.body;
   if (!user_id || !payload) return res.status(400).json({ error: 'Missing fields' });
